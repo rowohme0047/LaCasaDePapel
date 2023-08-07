@@ -1,0 +1,67 @@
+<header class="menu-bar">
+  <div class="brand">
+    <span>LaCasa De Papel</span>
+    <img src="assets/symbol.png" alt="Logo" />
+  </div>
+  <div class="menu-actions">
+    <!-- Add the notification icon with the message count -->
+    <div class="notification-icon" (click)="showMessages()">
+      <span class="notification-count" *ngIf="unreadMessagesCount > 0">{{ unreadMessagesCount }}</span>
+      <i class="fa fa-envelope"></i>
+    </div>  
+    <button class="logout-button" routerLink="/adminlogin">Logout</button>
+  </div>
+</header>
+
+<div class="main-content">
+  <div class="left-panel">
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchText" (input)="onSearchInput($event)" placeholder="Search users">
+    </div>
+    <!-- Display list of all users in a table -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>Date of Birth</th>
+          <th>Username </th>
+          <th>Email</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of getCurrentUsers()">
+          <td>{{ user.id }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{user.gender}}</td>
+          <td>{{user.dob}}</td>
+          <td>{{ user.username }}</td>
+          <td>{{user.email}}</td>
+          <td><button (click)="deleteUser(user.id)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+      <span>{{ currentPage }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+  </div>
+  <div class="right-panel">
+    <!--<button class="request-message-button" (click)="readMessage()">
+      Requests
+      <span class="notification-count" *ngIf="unreadMessagesCount > 0">{{ unreadMessagesCount }}</span>
+    </button>-->
+    <div class="emergency-toggle">
+      <span>Emergency only</span>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="emergencyMode" (change)="onToggleChange()" />
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+</div>

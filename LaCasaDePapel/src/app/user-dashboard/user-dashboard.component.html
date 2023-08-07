@@ -1,0 +1,225 @@
+<div class="menu-bar-thick">
+  <div class="left-content">
+    <h5>Account Number: {{accountNum}}</h5>
+  </div>
+  <div class="right-content">
+    <button class="profile-button" (click)="openProfileOverlay()">Profile</button>
+    <button class="logout-button" (click)="logout()">Logout</button>
+  </div>
+</div>
+<div class="overlay3" *ngIf="showProfileOverlay">
+  <div class="user-form3">
+    <div class="profile-bar"> <!-- Add a div for the profile bar -->
+      <h3>Your Profile</h3>
+    </div>
+      <p><strong>ID:</strong> {{ userId }}</p>
+      <p><strong>First Name:</strong> {{ user.firstName }}</p>
+      <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+      <p><strong>Gender:</strong> {{ user.gender }}</p>
+      <p><strong>Date of Birth:</strong> {{ user.dob }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Password:</strong> {{ user.pass }}</p>
+      <button class="delete-button" (click)="showDeleteWarning()">Delete Account</button>
+<div *ngIf="showDeleteWarningForm" class="delete-warning">
+  <p>Once done, cannot be undone. Please enter a reason for deleting your account:</p>
+  <textarea [(ngModel)]="deleteReason" rows="4"></textarea>
+  <button class="submit-button" (click)="submitDeleteAccount()">Submit</button>
+  <button class="cancel-button" (click)="closeDeleteWarning()">Cancel</button>
+</div>
+    <button class="cancel-button" (click)="closeForm2()">Cancel</button>
+  </div>
+</div>
+<div class="container">
+  <div class="left-panel">
+    <img src="assets\symbol.png" alt="La Casa de Papel Image">
+    <div  class="welcome-message">
+    <h2 >Welcome,</h2>
+    <h2 align="right">{{ firstName }} {{ lastName }}</h2> 
+  </div>
+  </div>
+  <div class="middle-panel">
+    <div class="upper-panel">
+      <img src="assets\stockg.gif" alt="Middle Panel Image">
+    </div>
+    <div class="lower-panel">
+      <button class="menu-button" (click)="getBalance()">
+        <img src="assets\balace.png" alt="Button 1">
+        <div class="button-text">Balance</div>
+      </button>
+      <button class="menu-button" (click)="depositAmt()">
+        <img src="assets\deposit.png" alt="Button 2">
+        <div class="button-text">Deposit</div>
+      </button>
+      <button class="menu-button" (click)="transfer()">
+        <img src="assets\transaction.png" alt="Button 3">
+        <div class="button-text">Transfer Amount</div>
+      </button>
+      <button class="menu-button" (click)="history()">
+        <img src="assets\his.png" alt="Button 4">
+        <div class="button-text">Transaction History</div>
+      </button>
+  
+      <!-- Overlay form for Balance -->
+      <div class="overlay" *ngIf="showBalanceForm">
+        <div class="user-form">
+          <h3>Your Account Balance is:</h3>
+          <h2>{{ amount }}</h2>
+          <button class="close-button" (click)="closeForm2()">Close</button>
+        </div>
+      </div>
+<!-- Overlay form for Deposit -->
+<div class="overlay" *ngIf="showDepositForm">
+  <div class="dis">
+    <img #depositImage style="display: none;" src="assets/what-processing.gif" alt="Deposit Image" width="200">
+  </div>
+  <div class="user-form">
+    <h6>We Accept</h6>
+    <img src="assets\carfad.png" alt="Accepted Cards">
+    <div class="form-row">
+      <div class="form-item">
+        <label for="cardHolderName">Card Holder Name:</label>
+        <input type="text" id="cardHolderName" name="cardHolderName" [(ngModel)]="cardHolderName" required>
+      </div>
+
+      <div class="form-item">
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" name="cardNumber" [(ngModel)]="cardNumber" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-item">
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv"[(ngModel)]="cvv" required>
+      </div>
+
+      <div class="form-item">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" [(ngModel)]="depositA" required>
+      </div>
+    </div>
+    <div class="button-container">
+      <button type="submit" class="submit-button" (click)="submitDepositForm()">Deposit </button>
+      <button type="button" class="cancel-button" (click)="closeForm2()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" *ngIf="showTransferForm">
+  <div class="user-form">
+    <form (ngSubmit)="submitTransferForm()">
+      <div class="form-group">
+        <label for="accountNumber">Account Number:</label>
+        <input type="text" id="accountNumber" name="accountNumber" [(ngModel)]="accountNum2" required>
+      </div>
+      <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" name="amount" [(ngModel)]="transferAmt" required>
+      </div>
+      <button type="submit" class="submit-button">Transfer</button>
+      <button type="button" class="cancel-button" (click)="closeForm2()">Cancel</button>
+    </form>
+  </div>
+</div>
+  
+<!-- Overlay form for Transaction History -->
+<div class="overlay" *ngIf="showHistoryForm">
+  <div class="user-form">
+    <h5>Transaction History</h5>
+    <div class="transaction-history-box">
+      <table class="transaction-history-table">
+        <tr>
+          <th>ID</th>
+          <th>₹</th>
+          <th>Type</th>
+          <th>Timestamp</th>
+        </tr>
+        <tr *ngFor="let transaction of transactionHistory">
+          <td>{{ transaction.id }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.type }}</td>
+          <td>{{ transaction.timestamp }}</td>
+        </tr>
+      </table>
+    </div>
+    <button class="close-button" (click)="closeForm2()">Close</button>
+  </div>
+</div>
+    </div>
+  </div>
+  
+   <!-- Right Panel -->
+   
+<div class="right-panel">
+  <div class="image-before-right">
+    <img src="assets\ccccc.png" alt="Button 1" (click)="openForm1()">
+  </div>
+  <div class="image-before-right">
+    <img src="assets\cheque-icon-6029.png" alt="Button 2" (click)="openForm2()">
+  </div>
+  <div class="image-before-right">
+    <img src="assets\rupees.png" alt="Button 3" (click)="openForm3()">
+  </div>
+  <div class="overlay" *ngIf="showForm1 || showForm2 || showForm3">
+    <div class="user-form"></div>
+     <form *ngIf="showForm1"(ngSubmit)="submitCreditCardForm()">
+      <h4>Apply for New Credit Card</h4>
+      <div class="form-group">
+        <label for="creditCardType">Type of Credit Card:</label>
+        <select id="creditCardType" name="creditCardType" [(ngModel)]="selectedCreditCardType" required>
+          <option value="" disabled selected>Select a credit card type</option>
+          <option value="Student Credit Card">Student Credit Card</option>
+          <option value="Reward Credit Card">Reward Credit Card</option>
+          <option value="Business Credit Card">Business Credit Card</option>
+          <option value="Travel Credit Card">Travel Credit Card</option>
+          <option value="Shopping Credit Card">Shopping Credit Card</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-button">Apply</button>
+      <button type="button" class="cancel-button" (click)="closeForm()">Cancel</button>
+    </form>
+
+    <!-- Form for the second button -->
+    <form *ngIf="showForm2"(ngSubmit)="submitCheckBookForm()">
+      <!-- Add your form fields and content for the second button here -->
+      <h4>Apply for New Check Book</h4>
+      <label for="supplyBookOf">Please supply book(s) of:</label>
+      <select id="supplyBookOf" name="supplyBookOf" [(ngModel)]="supplyBookOf">
+        <option value="25">25 Leaves</option>
+        <option value="50">50 Leaves</option>
+      </select>
+      <label>I agree and acknowledge that the check book(s) will be:</label>
+      <div class="agreement-options">
+        <label for="collectAtBranch">Collected at the branch</label>
+        <input type="radio" id="collectAtBranch" name="deliveryMethod" [(ngModel)]="collectAtBranch" value="collectAtBranch">
+      </div>
+      <div class="agreement-options">
+        <label for="dispatchByCourier">Dispatched by courier</label>
+        <input type="radio" id="dispatchByCourier" name="deliveryMethod" [(ngModel)]="dispatchByCourier" value="dispatchByCourier">
+      </div>
+      
+      <button type="submit" class="submit-button">Apply</button>
+      <button type="button" class="cancel-button" (click)="closeForm()">Cancel</button>
+    </form>
+
+    <!-- Form for the third button -->
+    <form *ngIf="showForm3" (ngSubmit)="submitLoanForm()">
+      <h2>Apply for Loan</h2>
+      <div class="form-group">
+        <label for="loanType">Type of Loan:</label>
+        <select id="loanType" name="loanType" [(ngModel)]="selectedLoanType" required>
+          <option value="" disabled selected>Select a loan type</option>
+          <option *ngFor="let type of loanTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" id="loanAmount" name="loanAmount" [(ngModel)]="loanAmount" required>
+      </div>
+      <button type="submit" class="submit-button">Apply</button>
+      <button type="button" class="cancel-button" (click)="closeForm()">Cancel</button>
+    </form>
+  </div>
+</div>
+</div>
