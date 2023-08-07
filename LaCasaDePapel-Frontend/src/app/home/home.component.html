@@ -1,0 +1,17 @@
+<div>
+  <nav class="menu-bar">
+    <ul>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/login" (click)="onLogin()">Login</a></li>
+      <li><a routerLink="/contact">About Us</a></li>
+      <li class="right"><a routerLink="/adminlogin">Administrator</a></li>
+    </ul>
+  </nav>
+  <img src="assets\login.jpg" alt="Full Picture" class="full-picture">
+
+  <router-outlet></router-outlet>
+
+  <footer class="footer">
+    &copy; 2023 LaCasa De Papel. All rights reserved.
+  </footer>
+</div>
