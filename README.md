@@ -1,2 +1,5 @@
 # LaCasaDePapel
- A secure and efficient banking application that enables users to manage their accounts, transfer funds, and perform various banking operations with ease. Built with Angular for the frontend and Spring Boot for the backend, ensuring a seamless and user-friendly banking experience.
+It is a modern web-based banking application providing users with a secure and convenient banking experience. The application offers real-time features like account management, fund transfers, transaction history, and account alerts. Leveraging Angular, TypeScript, HTML, and CSS for frontend and Spring Boot and MySQL for backend, ensuring a seamless and user-friendly banking experience. LaCasaDePapel stands as a reliable and efficient banking solution for managing finances.
+
+
+
